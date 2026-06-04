@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  background: #1c1c1c;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 5vh;
+  gap: 20px;
+}
+
+#main-title {
+  font-size: clamp(2rem, 5vw + 2vh, 6rem);
+  color: white;
+  margin: 0;
+}
+
+.list-ctn {
+  padding-top: 20px;
+  padding: 20px;
+   width: 95%;
+}
+
+/* grid 排列 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* 卡片 */
+.midi-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: 1px solid #eee;
+}
+
+.midi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* 標題 */
+.card-title {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+/* 作曲者 */
+.card-composer {
+  font-size: 13px;
+  color: #666;
+}
+
+/* info box */
+.success-box {
+  margin-top: 10px;
+  padding: 10px;
+  background: #e8fff0;
+  border: 1px solid #b7f5c9;
+  border-radius: 8px;
+}

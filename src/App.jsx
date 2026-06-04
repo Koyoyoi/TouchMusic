@@ -17,7 +17,7 @@ export default function App() {
   return (
     <div className="app-container">
 
-      <h1 className="title">🎹 MIDI Library</h1>
+      <h1 className="title">Touch Music</h1>
 
       <LoadButton
         setMidiList={setMidiList}

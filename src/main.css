@@ -1,72 +1,117 @@
+:root {
+
+  --bg: #1b1613;            /* 墨茶黑 */
+  --bg-soft: #221c18;      /* 卡片底層 */
+  --bg-elevated: #2a231e;  /* 浮起層 */
+
+  /* 📜 文字系統 */
+  --text: #f3eadf;         /* 和紙白 */
+  --subtext: #c7b8aa;     /* 淡米灰 */
+  --muted: #9f8f83;       /* 更弱提示 */
+
+  --border: #3a2f28;      /* 暗木邊框 */
+  --border-soft: #2f2621;
+
+  --sakura: #f8c3cd;      /* 桜 */
+  --ume: #dc9fb4;         /* 紅梅系粉 */
+  --sumi: #2f2a25;        /* 墨 */
+  --kogecha: #5b3a29;     /* 焦茶 */
+  --akebono: #f4a7b9;     /* 曙色 */
+
+  /* 🌫 陰影 */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 26px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 18px rgba(247, 102, 90, 0.25);
+}
+
 body {
   margin: 0;
-  background: #1c1c1c;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  padding-top: 5vh;
+  padding-top: clamp(24px, 5vh, 80px);
   gap: 20px;
 }
 
+/* =========================
+   標題
+========================= */
 #main-title {
   font-size: clamp(2rem, 5vw + 2vh, 6rem);
-  color: white;
+  color: var(--text);
   margin: 0;
+  letter-spacing: 0.05em;
 }
 
+/* =========================
+   list
+========================= */
 .list-ctn {
-  padding-top: 20px;
   padding: 20px;
-   width: 95%;
+  width: 95%;
 }
 
-/* grid 排列 */
+/* =========================
+   grid
+========================= */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
 }
 
-/* 卡片 */
+/* =========================
+   卡片（核心）
+========================= */
 .midi-card {
-  background: #ffffff;
-  border-radius: 12px;
+  background: var(--bg-soft);
+  border-radius: 14px;
   padding: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  border: 2px solid var(--border);
+
+  box-shadow: var(--shadow-sm);
+
   cursor: pointer;
-  transition: 0.2s ease;
-  border: 1px solid #eee;
+
+  transition: transform 0.2s ease,
+              background 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+
+  color: var(--text);
 }
 
+/* hover */
 .midi-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+
+  background: var(--bg-elevated);
+  border-color: var(--sakura);
+
+  box-shadow: var(--shadow-glow), var(--shadow-md);
 }
 
-/* 標題 */
+/* focus */
+.midi-card:focus-visible {
+  outline: 3px solid var(--sakura);
+  outline-offset: 3px;
+}
+
 .card-title {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 15px;
   margin-bottom: 6px;
-  color: #222;
+  color: var(--text);
 }
 
-/* 作曲者 */
 .card-composer {
   font-size: 13px;
-  color: #666;
-}
-
-/* info box */
-.success-box {
-  margin-top: 10px;
-  padding: 10px;
-  background: #e8fff0;
-  border: 1px solid #b7f5c9;
-  border-radius: 8px;
+  color: var(--subtext);
 }

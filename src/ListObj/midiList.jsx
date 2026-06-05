@@ -70,42 +70,40 @@ export default function MidiList() {
 
       console.log("MIDI Events:", json);
 
-      if (Array.isArray(json.events)) {
-        const groups = new Map();
+      const timeKey = (t) => Math.round(t * 1e6);
 
-        // 建立歌詞索引
-        const lyricMap = new Map();
+      // 建立 event 索引
+      const eventMap = new Map();
 
-        json.lyrics?.forEach((lyric) => {
-          const t = Math.floor(lyric.time * 1e6) / 1e6;
-          lyricMap.set(t, lyric.text);
-        });
+      json.events.forEach((ev) => {
+        const key = timeKey(ev.time);
 
-        json.events.forEach((ev) => {
-          if (ev.channel !== 0) return;
+        if (!eventMap.has(key)) {
+          eventMap.set(key, []);
+        }
 
-          const t = Math.floor(ev.time * 1e6) / 1e6;
+        eventMap.get(key).push(ev);
+      });
 
-          if (!groups.has(t)) {
-            groups.set(t, {
-              lyrics: lyricMap.get(t) || "",
-              notes: {},
-            });
+      // 將 lyric 加入對應 event
+      json.lyrics?.forEach((lyric) => {
+        const key = timeKey(lyric.time);
+
+        const events = eventMap.get(key);
+
+        if (!events) return;
+
+        events.forEach((ev) => {
+          if (!ev.lyrics) {
+            ev.lyrics = [];
           }
 
-          groups.get(t).notes[ev.midi] = ev;
+          ev.lyrics = lyric.text;
         });
+      });
 
-        const midiEvent = [...groups.entries()]
-          .sort((a, b) => a[0] - b[0])
-          .map((entry) => entry[1]);
+      console.log(json.events);
 
-        console.log("整理後資料:", midiEvent);
-
-        alert(
-          `${mid.title}\n共載入 ${midiEvent.length} 個時間事件`
-        );
-      }
     } catch (err) {
       console.error(err);
       alert(`❌ 載入失敗：${err.message}`);

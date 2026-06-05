@@ -1,4 +1,4 @@
-# 🎸 AIR Guitar × 🎹 Touch Pianist (React + Vite)
+# 🎼Touch Music(React + Vite)
 
 ## 🌟 Introduction｜專案簡介
 
@@ -12,12 +12,6 @@ This project is an interactive music experiment, developed as an independent mod
 
 The entire screen becomes a musical instrument.  
 整個畫面即為一個可演奏的樂器。
-
-Instead of clicking buttons, users perform music through movement.  
-使用者不透過按鈕操作，而是以「移動」進行音樂演奏。
-
-- 🎸 AIR Guitar → gesture-based expressive sound  
-  🎸 空氣吉他 → 手勢驅動的音樂表現
 
 - 🎹 Touch Pianist → continuous touch-based flow  
   🎹 Touch Pianist → 連續觸控式音樂流動

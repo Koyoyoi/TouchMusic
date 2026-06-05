@@ -1,4 +1,4 @@
-import MidiList from "./ListObj/midiList.jsx";
+import MidiList from "./midiList.jsx";
 export default function App() {
   return (
     <div className="container">

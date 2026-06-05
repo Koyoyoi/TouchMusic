@@ -1,41 +1,26 @@
 # 🎸 AIR Guitar × 🎹 Touch Pianist (React + Vite)
 
-An experimental interactive music web app inspired by **AIR Guitar gestures** and the **Touch Pianist** concept.
+## 🌟 Introduction｜專案簡介
 
-一個結合 **AIR Guitar 手勢演奏** 與 **Touch Pianist 觸控式音樂概念** 的互動式音樂實驗專案。
+This project is an interactive music experiment, developed as an independent module derived from **AIR Guitar functionality**, inspired by the **touch-based interaction model of Touch Pianist**.
 
----
-
-## 🌟 Concept｜概念
-
-This project turns the entire screen into a musical instrument.
-
-這個專案將整個畫面變成一個可以「演奏」的樂器。
-
-- 🎸 AIR Guitar → expressive motion-based performance  
-  🎸 空氣吉他 → 透過動作進行音樂表現
-
-- 🎹 Touch Pianist → continuous touch music flow  
-  🎹 Touch Pianist → 連續觸控式音樂流
-
-You don’t press buttons — you perform with movement.
-
-你不需要按按鈕，而是用「移動」來演奏音樂。
+本專案為從 **AIR Guitar 功能中獨立延伸出的互動模組**，並參考 **Touch Pianist 的觸控式音樂互動概念** 所打造的互動式音樂實驗。
 
 ---
 
-## 🎯 Core Idea｜核心概念
+## 🎯 Concept｜核心概念
 
-The entire `div` is the instrument.
+The entire screen becomes a musical instrument.  
+整個畫面即為一個可演奏的樂器。
 
-整個 `div` 就是一個樂器。
+Instead of clicking buttons, users perform music through movement.  
+使用者不透過按鈕操作，而是以「移動」進行音樂演奏。
 
-| Interaction｜互動 | Result｜效果 |
-|------------------|-------------|
-| Mouse move 滑鼠移動 | Plays notes 持續發聲 |
-| Touch move 觸控滑動 | Mobile performance 手機演奏 |
-| X-axis X 軸 | Pitch 音高 |
-| Y-axis Y 軸 | Volume / tone 音量與音色 |
+- 🎸 AIR Guitar → gesture-based expressive sound  
+  🎸 空氣吉他 → 手勢驅動的音樂表現
+
+- 🎹 Touch Pianist → continuous touch-based flow  
+  🎹 Touch Pianist → 連續觸控式音樂流動
 
 ---
 
@@ -44,29 +29,22 @@ The entire `div` is the instrument.
 - React (Vite)
 - Web Audio API
 - JavaScript (ES6+)
-- CSS (dark ambient theme)
+- CSS (dark ambient UI)
 
 ---
 
 ## 🎮 How It Works｜運作方式
 
-Pointer position is mapped to sound parameters in real time.
+Pointer position is mapped in real time to sound parameters.
 
 滑鼠或觸控位置會即時映射到聲音參數：
 
 - X position → frequency (pitch)｜X 軸 → 音高
 - Y position → gain (volume)｜Y 軸 → 音量
-- Oscillator generates sound｜震盪器產生聲音
-- Filter shapes tone｜濾波器改變音色
+- Oscillator generates audio｜震盪器即時產生聲音
+- Filter shapes tone｜濾波器塑造音色
 
-This creates a fluid “instrument-like” experience.
+This creates a fluid, instrument-like experience.
 
-形成一種流動式的「樂器演奏體驗」。
+形成一種流動且具樂器感的互動體驗。
 
----
-
-## 🚀 Getting Started｜啟動專案
-
-### 1. Install dependencies｜安裝依賴
-```bash
-npm install

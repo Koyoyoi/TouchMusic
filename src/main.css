@@ -57,18 +57,31 @@ body {
   width: 95%;
 }
 
-/* =========================
-   grid
-========================= */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
 }
 
-/* =========================
-   卡片（核心）
-========================= */
+/* <= 5 columns → 逐步縮減 */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .midi-card {
   background: var(--bg-soft);
   border-radius: 14px;

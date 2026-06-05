@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-/* 排序 */
 function sortByTitle(data) {
   return [...data].sort((a, b) => {
     const titleA = a.title?.toUpperCase() || "";
@@ -55,9 +54,62 @@ export default function MidiList() {
     }
   }
 
-  function getEvents(mid) {
-    console.log(mid);
-    alert(`點擊：${mid.title}`);
+  async function getEvents(mid) {
+    try {
+      console.log("下載中...", mid);
+
+      const url = `https://imuse.ncnu.edu.tw/Midi-library/api/midis/${mid.id}/events`;
+
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const json = await res.json();
+
+      console.log("MIDI Events:", json);
+
+      if (Array.isArray(json.events)) {
+        const groups = new Map();
+
+        // 建立歌詞索引
+        const lyricMap = new Map();
+
+        json.lyrics?.forEach((lyric) => {
+          const t = Math.floor(lyric.time * 1e6) / 1e6;
+          lyricMap.set(t, lyric.text);
+        });
+
+        json.events.forEach((ev) => {
+          if (ev.channel !== 0) return;
+
+          const t = Math.floor(ev.time * 1e6) / 1e6;
+
+          if (!groups.has(t)) {
+            groups.set(t, {
+              lyrics: lyricMap.get(t) || "",
+              notes: {},
+            });
+          }
+
+          groups.get(t).notes[ev.midi] = ev;
+        });
+
+        const midiEvent = [...groups.entries()]
+          .sort((a, b) => a[0] - b[0])
+          .map((entry) => entry[1]);
+
+        console.log("整理後資料:", midiEvent);
+
+        alert(
+          `${mid.title}\n共載入 ${midiEvent.length} 個時間事件`
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`❌ 載入失敗：${err.message}`);
+    }
   }
 
   return (

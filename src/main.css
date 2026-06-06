@@ -41,6 +41,10 @@ body {
   color: var(--text);
 }
 
+:not(input):not(textarea) {
+  caret-color: transparent;
+}
+
 .container {
   min-height: 100vh;
   display: flex;
@@ -51,8 +55,6 @@ body {
 }
 
 #main-title {
-  caret-color: transparent;
-
   font-size: clamp(2rem, calc(5vw + 2vh), 6rem);
   color: var(--text);
   margin: 0;
@@ -179,4 +181,62 @@ body {
 .search-box input:focus {
   border-color: var(--sakura);
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+}
+
+.player-page {
+  position: relative;
+  padding: 24px;
+  color: var(--text);
+
+  display: block; /* 避免 flex 造成重疊 */
+}
+
+/* 🔙 Back Button */
+.back-btn {
+  position: absolute;
+  left: 24px;
+  top: 20px;
+
+  background: transparent;
+  border: 1px solid #333;
+  color: var(--text);
+
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: var(--bg-elevated);
+}
+
+.midi-title {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  white-space: nowrap;
+
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+}
+
+/* 🎼 Composer */
+.midi-composer {
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
+  margin-top: 50px;
+  margin-bottom: 6px;
+
+  color: var(--subtext);
+  font-size: 14px;
 }

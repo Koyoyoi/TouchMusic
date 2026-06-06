@@ -24,20 +24,14 @@ export default function Player({
         ← Back
       </button>
 
-      <h1>
+      <h1 className="midi-title">
         {midi?.title}
       </h1>
 
-      <p>
+      <p className="midi-composer">
         Composer:
         {" "}
         {midi?.composer}
-      </p>
-
-      <p>
-        Events:
-        {" "}
-        {midi?.events?.length || 0}
       </p>
 
       <canvas id="piano-roll" />

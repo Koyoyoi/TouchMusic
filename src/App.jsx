@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MidiList from "./MidiList";
-import Player from "./Player";
+import Player from "./PlayPage";
 
 function SearchBox({ searchText, setSearchText }) {
   return (

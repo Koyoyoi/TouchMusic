@@ -4,11 +4,17 @@ function sortByTitle(data) {
   return [...data].sort((a, b) => {
     const titleA = a.title?.toUpperCase() || "";
     const titleB = b.title?.toUpperCase() || "";
-    return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+
+    if (titleA < titleB) return -1;
+    if (titleA > titleB) return 1;
+    return 0;
   });
 }
 
-export default function MidiList({ searchText }) {
+export default function MidiList({
+  searchText,
+  onSelectMidi,
+}) {
   const [midiList, setMidiList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,26 +51,36 @@ export default function MidiList({ searchText }) {
 
     try {
       while (true) {
-        const url = `https://imuse.ncnu.edu.tw/Midi-library/api/midis?page=${page}&limit=100&sort=uploaded_at&order=desc`;
+        const url =
+          `https://imuse.ncnu.edu.tw/Midi-library/api/midis?page=${page}&limit=100&sort=uploaded_at&order=desc`;
 
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
 
         const json = await res.json();
-        const items = Array.isArray(json.items) ? json.items : [];
+
+        const items = Array.isArray(json.items)
+          ? json.items
+          : [];
 
         if (items.length === 0) break;
 
-        allItems = [...allItems, ...items];
+        allItems.push(...items);
+
         page++;
 
-        await new Promise((r) => setTimeout(r, 200));
+        await new Promise((r) =>
+          setTimeout(r, 200)
+        );
       }
 
       const sorted = sortByTitle(allItems);
+
       setMidiList(sorted);
       setFilteredList(sorted);
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -72,11 +88,10 @@ export default function MidiList({ searchText }) {
     }
   }
 
-  async function getEvents(mid) {
+  async function openMidi(mid) {
     try {
-      console.log("下載中...", mid);
-
-      const url = `https://imuse.ncnu.edu.tw/Midi-library/api/midis/${mid.id}/events`;
+      const url =
+        `https://imuse.ncnu.edu.tw/Midi-library/api/midis/${mid.id}/events`;
 
       const res = await fetch(url);
 
@@ -86,45 +101,17 @@ export default function MidiList({ searchText }) {
 
       const json = await res.json();
 
-      console.log("MIDI Events:", json);
+      const midiData = {
+        ...mid,
+        events: json.events || [],
+        lyrics: json.lyrics || [],
+      };
 
-      const timeKey = (t) => Math.round(t * 1e6);
-
-      // 建立 event 索引
-      const eventMap = new Map();
-
-      json.events.forEach((ev) => {
-        const key = timeKey(ev.time);
-
-        if (!eventMap.has(key)) {
-          eventMap.set(key, []);
-        }
-
-        eventMap.get(key).push(ev);
-      });
-
-      // 將 lyric 加入對應 event
-      json.lyrics?.forEach((lyric) => {
-        const key = timeKey(lyric.time);
-
-        const events = eventMap.get(key);
-
-        if (!events) return;
-
-        events.forEach((ev) => {
-          if (!ev.lyrics) {
-            ev.lyrics = [];
-          }
-
-          ev.lyrics = lyric.text;
-        });
-      });
-
-      console.log(json.events);
+      onSelectMidi(midiData);
 
     } catch (err) {
       console.error(err);
-      alert(`❌ 載入失敗：${err.message}`);
+      alert(`載入失敗：${err.message}`);
     }
   }
 
@@ -132,15 +119,19 @@ export default function MidiList({ searchText }) {
     <div className="list-ctn">
 
       {loading && <p>載入中...</p>}
-      {error && <p style={{ color: "red" }}>❌ {error}</p>}
 
-      {/* 卡片區 */}
+      {error && (
+        <p style={{ color: "red" }}>
+          ❌ {error}
+        </p>
+      )}
+
       <div className="card-grid">
         {filteredList.map((mid, idx) => (
           <div
             key={mid.id || idx}
             className="midi-card"
-            onClick={() => getEvents(mid)}
+            onClick={() => openMidi(mid)}
           >
             <div className="card-title">
               {mid.title || "No Title"}

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import MidiList from "./midiList.jsx";
+import MidiList from "./MidiList";
+import Player from "./Player";
 
-export function SearchBox({ searchText, setSearchText }) {
+function SearchBox({ searchText, setSearchText }) {
   return (
     <div className="search-box">
       <input
@@ -16,6 +17,16 @@ export function SearchBox({ searchText, setSearchText }) {
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
+  const [selectedMidi, setSelectedMidi] = useState(null);
+
+  if (selectedMidi) {
+    return (
+      <Player
+        midi={selectedMidi}
+        onBack={() => setSelectedMidi(null)}
+      />
+    );
+  }
 
   return (
     <div className="container">
@@ -26,7 +37,10 @@ export default function App() {
         setSearchText={setSearchText}
       />
 
-      <MidiList searchText={searchText} />
+      <MidiList
+        searchText={searchText}
+        onSelectMidi={setSelectedMidi}
+      />
     </div>
   );
 }

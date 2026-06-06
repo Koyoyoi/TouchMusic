@@ -35,7 +35,7 @@ export default function MidiList({ searchText }) {
 
     setFilteredList(result);
   }, [searchText, midiList]);
-  
+
   async function loadFiles() {
     let page = 1;
     let allItems = [];

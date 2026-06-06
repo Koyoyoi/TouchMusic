@@ -51,6 +51,8 @@ body {
 }
 
 #main-title {
+  caret-color: transparent;
+
   font-size: clamp(2rem, calc(5vw + 2vh), 6rem);
   color: var(--text);
   margin: 0;
@@ -88,6 +90,8 @@ body {
 }
 
 .midi-card {
+  caret-color: transparent;
+
   background: var(--bg-soft);
   border-radius: 14px;
   padding: 14px;

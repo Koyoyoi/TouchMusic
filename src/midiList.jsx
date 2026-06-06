@@ -8,7 +8,7 @@ function sortByTitle(data) {
   });
 }
 
-export default function MidiList() {
+export default function MidiList({ searchText }) {
   const [midiList, setMidiList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,6 +18,24 @@ export default function MidiList() {
     loadFiles();
   }, []);
 
+  useEffect(() => {
+    const keyword = searchText.toLowerCase().trim();
+
+    if (!keyword) {
+      setFilteredList(midiList);
+      return;
+    }
+
+    const result = midiList.filter((mid) => {
+      return (
+        mid.title?.toLowerCase().includes(keyword) ||
+        mid.composer?.toLowerCase().includes(keyword)
+      );
+    });
+
+    setFilteredList(result);
+  }, [searchText, midiList]);
+  
   async function loadFiles() {
     let page = 1;
     let allItems = [];

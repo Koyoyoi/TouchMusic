@@ -1,22 +1,16 @@
-import { useEffect } from "react";
+import { useRef } from "react";
+import usePlayPage from "./usePlayPage";
 
 export default function Player({
   midi,
   onBack,
 }) {
+  const canvasRef = useRef(null);
 
-  useEffect(() => {
-    console.log("載入 MIDI", midi);
-
-    console.log(
-      "events:",
-      midi.events?.length
-    );
-  }, [midi]);
+  usePlayPage(canvasRef, midi);
 
   return (
     <div className="player-page">
-
       <button
         className="back-btn"
         onClick={onBack}
@@ -29,13 +23,10 @@ export default function Player({
       </h1>
 
       <p className="midi-composer">
-        Composer:
-        {" "}
         {midi?.composer}
       </p>
 
-      <canvas id="piano-roll" />
-
+      <canvas ref={canvasRef} />
     </div>
   );
 }

@@ -185,10 +185,12 @@ body {
 
 .player-page {
   position: relative;
-  padding: 24px;
-  color: var(--text);
+  width: 100vw;
+  height: 100vh;
 
-  display: block; /* 避免 flex 造成重疊 */
+  overflow: hidden;
+
+  color: var(--text);
 }
 
 /* 🔙 Back Button */
@@ -228,7 +230,6 @@ body {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
 }
 
-/* 🎼 Composer */
 .midi-composer {
   position: absolute;
   left: 50%;
@@ -239,4 +240,15 @@ body {
 
   color: var(--subtext);
   font-size: 14px;
+}
+
+.play-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: block;
 }

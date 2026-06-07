@@ -193,7 +193,6 @@ body {
   color: var(--text);
 }
 
-/* 🔙 Back Button */
 .back-btn {
   position: absolute;
   left: 24px;
